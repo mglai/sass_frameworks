@@ -1,0 +1,73 @@
+//竖向渐变
+@mixin linear-v($start, $stop) {
+	background: $start;
+	background: -webkit-linear-gradient(top, $start, $stop);
+	background: linear-gradient(top, $start, $stop);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start)}', endColorstr='#{ie-hex-str($stop)}');
+}
+//横向渐变
+@mixin linear-h($start, $stop) {
+	background: $start;
+	background: -webkit-linear-gradient(left, $start, $stop);
+	background: linear-gradient(left, $start, $stop);
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1, startColorstr='#{ie-hex-str($start)}', endColorstr='#{ie-hex-str($stop)}');
+}
+//透明背景
+@mixin bg-alpha($rgba) {
+	background-image: url(about:blank);
+	background-color: $rgba;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($rgba)}', endColorstr='#{ie-hex-str($rgba)}');
+	html:root & {
+		filter: none;
+	}
+}
+//高分辨率图
+@mixin image-set($name, $repeat: "", $extname: "png", $ratio: 2) {
+    background-image: url(../images/#{$name}.#{$extname}?v=#{$version});
+    @if $ratio >= 2 {
+        $img-set-url: "";
+        $img-set-at: "";
+        @for $i from 0 to $ratio {
+            @if $i > 0 {
+                $img-set-url: "#{$img-set-url}, ";
+                $img-set-at: "@#{$i+1}x"
+            }
+            $img-set-url: "#{$img-set-url}url(../images/#{$name}#{$img-set-at}.#{$extname}?v=#{$version}) #{$i+1}x";
+        }
+        background-image: -webkit-image-set(#{$img-set-url});
+    }
+    @if $repeat != "" {
+        background-repeat: #{$repeat};
+    }
+}
+//视网膜屏幕
+@mixin retina {
+	@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+		@content;
+	}
+}
+//宽度自适应
+@mixin max-width($maxwidth: 999px) {
+    @media only screen and (max-width: $maxwidth) {
+        @content;
+    }
+}
+//css hack
+@mixin ie6-only {
+  * html {
+    @content;
+  }
+}
+@mixin ie7-only {
+	*+html {
+		@content;
+	}
+}
+// 引用@2x图标
+@mixin image2x($name) {
+    background-image: url(../images/#{$name}.png?v=#{$version});
+    background-image: -webkit-image-set(url(../images/#{$name}.png?v=#{$version}) 1x, url(../images/#{$name}@2x.png?v=#{$version}) 2x);
+    background-repeat: no-repeat;
+}
+//静态图片版本
+$version: 1.0;
