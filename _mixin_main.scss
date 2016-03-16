@@ -69,5 +69,77 @@
     background-image: -webkit-image-set(url(../images/#{$name}.png?v=#{$version}) 1x, url(../images/#{$name}@2x.png?v=#{$version}) 2x);
     background-repeat: no-repeat;
 }
+
+// mixin_main 补充：过渡动画
+@mixin global-transition ($attr, $last, $type) {
+    transition:         $attr $last $type;
+    -moz-transition:    $attr $last $type;
+    -webkit-transition: $attr $last $type;
+    -o-transition:      $attr $last $type;
+    -ms-transition:     $attr $last $type;
+}
+////
+
+// mixin_main 补充： Prefixing Flexbox 
+@mixin flexbox() {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+@mixin flex($values) {
+    -webkit-box-flex: $values;
+    -moz-box-flex:  $values;
+    -webkit-flex:  $values;
+    -ms-flex:  $values;
+    flex:  $values;
+}
+@mixin flexdirection($values) {
+    -webkit-flex-direction: $values;
+    -moz-flex-direction:  $values;
+    -ms-flex-direction: $values;
+    flex-direction: $values;
+}
+@mixin flexalignitems($values) {
+    -webkit-align-items: $values;
+    -moz-align-items: $values;
+    -ms-align-items: $values;
+    align-items: $values;
+}
+@mixin flexajustifycontent($values) {
+    -webkit-justify-content: $values;
+    -moz-justify-content: $values;
+    -ms-justify-content: $values;
+    justify-content: $values;
+}
+@mixin flexwrap($values) {
+    -webkit-flex-wrap: $values;
+    -moz-flex-wrap: $values;
+    -ms-flex-wrap: $values;
+    flex-wrap: $values;
+}
+////
+
+// mixin_main 补充： snippet
+%txt-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+%txt-break {
+    word-wrap: break-word;
+}
+%clearfix {
+    zoom: 1;
+    &:after {
+        content: "";
+        display: block;
+        clear: both;
+        height: 0;
+    }
+}
+////
+
 //静态图片版本
 $version: 1.0;
